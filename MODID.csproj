@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>.NETFramework,Version=v4.8</TargetFramework>
+    <AssemblyName>MODID</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>ASSEMBLYPATH\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>ASSEMBLYPATH\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>ASSEMBLYPATH\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>ASSEMBLYPATH\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>ASSEMBLYPATH\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>ASSEMBLYPATH\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    
+    <Reference Include="0Harmony">
+      <HintPath>ASSEMBLYPATH\UnityModManager\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityModManager">
+      <HintPath>ASSEMBLYPATH\UnityModManager\UnityModManager.dll</HintPath>
+    </Reference>
+    
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.3.3" />
+  </ItemGroup>
+
+</Project>

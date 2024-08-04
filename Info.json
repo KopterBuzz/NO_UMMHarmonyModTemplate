@@ -1,0 +1,10 @@
+{
+    "Id": "MODID",
+    "DisplayName": "DISPLAYNAME",
+    "Author": "AUTHOR",
+    "Version": "0.0.0.1",
+    "ManagerVersion": "0.25.0.0",
+    "Requirements": [],
+    "AssemblyName": "MODID.dll",
+    "EntryMethod": "MODID.Main.Load"
+  }
