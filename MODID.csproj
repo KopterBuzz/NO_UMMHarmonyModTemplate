@@ -3,34 +3,25 @@
   <PropertyGroup>
     <TargetFramework>.NETFramework,Version=v4.8</TargetFramework>
     <AssemblyName>MODID</AssemblyName>
+    <AssemblyDir Condition="'$(AssemblyDir)'==''">ASSEMBLYDIR</AssemblyDir>
+    <ModDeployDir Condition="'$(ModDeployDir)'==''">GAMEDIR\Mods\MODID</ModDeployDir>
   </PropertyGroup>
+
+  <Target Name="CopyModToDeployDir" AfterTargets="AfterBuild">
+    <Copy SourceFiles="./bin/$(Configuration)/.netframework,version=v4.8/MODID.dll" DestinationFolder="$(ModDeployDir)" />
+    <Copy SourceFiles="./bin/$(Configuration)/.netframework,version=v4.8/MODID.pdb" DestinationFolder="$(ModDeployDir)" />
+    <Copy SourceFiles="Info.json" DestinationFolder="$(ModDeployDir)" />
+  </Target>
+
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>ASSEMBLYPATH\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>ASSEMBLYPATH\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>ASSEMBLYPATH\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>ASSEMBLYPATH\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>ASSEMBLYPATH\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>ASSEMBLYPATH\UnityEngine.IMGUIModule.dll</HintPath>
-    </Reference>
-    
     <Reference Include="0Harmony">
-      <HintPath>ASSEMBLYPATH\UnityModManager\0Harmony.dll</HintPath>
+      <HintPath>$(AssemblyDir)\UnityModManager\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="UnityModManager">
-      <HintPath>ASSEMBLYPATH\UnityModManager\UnityModManager.dll</HintPath>
+      <HintPath>$(AssemblyDir)\UnityModManager\UnityModManager.dll</HintPath>
     </Reference>
+
+    <Reference Include="$(AssemblyDir)}.dll" />
     
   </ItemGroup>
   <ItemGroup>
