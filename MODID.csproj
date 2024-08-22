@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>.NETFramework,Version=v4.8</TargetFramework>
     <AssemblyName>MODID</AssemblyName>
-    <AssemblyDir Condition="'$(AssemblyDir)'==''">ASSEMBLYDIR</AssemblyDir>
+    <AssemblyDir Condition="'$(AssemblyDir)'==''">ASSEMBLYPATH</AssemblyDir>
     <ModDeployDir Condition="'$(ModDeployDir)'==''">GAMEDIR\Mods\MODID</ModDeployDir>
   </PropertyGroup>
 
@@ -21,7 +21,7 @@
       <HintPath>$(AssemblyDir)\UnityModManager\UnityModManager.dll</HintPath>
     </Reference>
 
-    <Reference Include="$(AssemblyDir)}.dll" />
+    <Reference Include="$(AssemblyDir)\*.dll" />
     
   </ItemGroup>
   <ItemGroup>
