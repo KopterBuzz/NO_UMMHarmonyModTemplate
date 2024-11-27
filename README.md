@@ -9,7 +9,7 @@ If it can find the game it is going to set up the project and solution with the 
 
 Example:
 
-.\setup.ps1 -GAME "Nuclear Option" -MODNAME "SampleMod" -DISPLAYNAME "Sample Mod For Nuclear Option"
+.\setup.ps1 -GAME "Nuclear Option" -MODID "SampleMod" -DISPLAYNAME "Sample Mod For Nuclear Option"
 
 You can also just edit the project template manually if you wish.
 When starting out: Search and Replace:
