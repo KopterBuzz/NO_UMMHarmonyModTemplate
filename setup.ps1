@@ -3,8 +3,11 @@ param(
      [string]$GAME,
 
      [Parameter(Position=1,Mandatory)]
-     [string]$MODNAME
+     [string]$MODNAME,
+     [Parameter(Position=2,Mandatory=$false)]
+     [string]$DISPLAYNAME
  )
+ if (!$DISPLAYNAME){$DISPLAYNAME=$MODNAME}
 ##########################
 ##HELPER FUNCTIONS START##
 ##########################
@@ -79,7 +82,7 @@ $projectManifest.save("$MODNAME.csproj")
 $JSON = get-content .\Info.json | convertfrom-json
 
 $JSON.ID = $MODNAME
-$JSON.DISPLAYNAME = $MODNAME
+$JSON.DISPLAYNAME = $DISPLAYNAME
 $JSON.AssemblyName = "$MODNAME.dll"
 $JSON.EntryMethod = "$MODNAME.Main.Load"
 
