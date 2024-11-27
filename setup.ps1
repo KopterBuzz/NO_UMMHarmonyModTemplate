@@ -81,8 +81,8 @@ $projectManifest.save("$MODNAME.csproj")
 
 $JSON = get-content .\Info.json | convertfrom-json
 
-$JSON.ID = $MODNAME
-$JSON.DISPLAYNAME = $DISPLAYNAME
+$JSON.Id = $MODNAME
+$JSON.DisplayName = $DISPLAYNAME
 $JSON.AssemblyName = "$MODNAME.dll"
 $JSON.EntryMethod = "$MODNAME.Main.Load"
 
