@@ -3,11 +3,11 @@ param(
      [string]$GAME,
 
      [Parameter(Position=1,Mandatory)]
-     [string]$MODNAME,
+     [string]$MODID,
      [Parameter(Position=2,Mandatory=$false)]
      [string]$DISPLAYNAME
  )
- if (!$DISPLAYNAME){$DISPLAYNAME=$MODNAME}
+ if (!$DISPLAYNAME){$DISPLAYNAME=$MODID}
 ##########################
 ##HELPER FUNCTIONS START##
 ##########################
@@ -64,26 +64,26 @@ if (!(Test-Path .\backup)) {New-Item .\backup -ItemType Directory}
 copy-item (".\MODID.csproj","MODID.sln","Info.json") .\backup
 Get-ChildItem .\backup | ForEach-Object {Rename-Item $_.fullname $($_.name + ".bak")}
 
-rename-item ".\MODID.csproj" ".\$MODNAME.csproj"
-rename-item ".\MODID.sln" ".\$MODNAME.sln"
+rename-item ".\MODID.csproj" ".\$MODID.csproj"
+rename-item ".\MODID.sln" ".\$MODID.sln"
 
-[xml]$projectManifest = get-content ".\$MODNAME.csproj"
+[xml]$projectManifest = get-content ".\$MODID.csproj"
 [string]$assemblyDir = "$gamePath\NuclearOption_Data\Managed"
-[string]$modDeployDir = "$gamePath\Mods\$MODNAME"
+[string]$modDeployDir = "$gamePath\Mods\$MODID"
 
-$projectManifest.Project.PropertyGroup.AssemblyName = $MODNAME
+$projectManifest.Project.PropertyGroup.AssemblyName = $MODID
 $projectManifest.Project.PropertyGroup.ModDeployDir.'#text' = $modDeployDir
 $projectManifest.Project.PropertyGroup.AssemblyDir.'#text' = $assemblyDir
 
-$projectManifest.save("$MODNAME.csproj")
+$projectManifest.save("$MODID.csproj")
 
-(get-content ".\$MODNAME.sln") -replace "MODID.csproj","$MODNAME.csproj" -replace "MODID","$MODNAME" | set-content ".\$MODNAME.sln"
+(get-content ".\$MODID.sln") -replace "MODID.csproj","$MODID.csproj" -replace "MODID","$MODID" | set-content ".\$MODID.sln"
 
 $JSON = get-content .\Info.json | convertfrom-json
 
-$JSON.Id = $MODNAME
+$JSON.Id = $MODID
 $JSON.DisplayName = $DISPLAYNAME
-$JSON.AssemblyName = "$MODNAME.dll"
-$JSON.EntryMethod = "$MODNAME.Main.Load"
+$JSON.AssemblyName = "$MODID.dll"
+$JSON.EntryMethod = "$MODID.Main.Load"
 
 $JSON | convertto-json | Set-Content .\Info.json
