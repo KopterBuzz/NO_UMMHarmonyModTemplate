@@ -82,7 +82,7 @@ $projectManifest.save("$MODID.csproj")
 
 (get-content ".\$MODID.sln") -replace "MODID","$MODID" | set-content ".\$MODID.sln"
 
-(get-content ".\*.cs") -replace "MODID","$MODID" | set-content ".\Main.cs"
+Get-ChildItem -Path . -Filter *.cs | Select -ExpandProperty Name | ForEach-Object { (get-content "$_") -replace "MODID","$MODID" | set-content "$_" }
 
 $JSON = get-content .\Info.json | convertfrom-json
 
