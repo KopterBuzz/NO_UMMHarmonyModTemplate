@@ -78,9 +78,9 @@ $projectManifest.Project.PropertyGroup.AssemblyDir.'#text' = $assemblyDir
 
 $projectManifest.save("$MODID.csproj")
 
-(get-content ".\$MODID.csproj") -replace "MODID.dll","$MODID.dll" -replace "MODID.pdb","$MODID.pdb" | set-content ".\$MODID.csproj"
+(get-content ".\$MODID.csproj") -replace "MODID","$MODID" | set-content ".\$MODID.csproj"
 
-(get-content ".\$MODID.sln") -replace "MODID.csproj","$MODID.csproj" -replace "MODID","$MODID" | set-content ".\$MODID.sln"
+(get-content ".\$MODID.sln") -replace "MODID","$MODID" | set-content ".\$MODID.sln"
 
 (get-content ".\*.cs") -replace "MODID","$MODID" | set-content ".\Main.cs"
 
