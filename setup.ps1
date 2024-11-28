@@ -82,7 +82,7 @@ $projectManifest.save("$MODID.csproj")
 
 (get-content ".\$MODID.sln") -replace "MODID.csproj","$MODID.csproj" -replace "MODID","$MODID" | set-content ".\$MODID.sln"
 
-(get-content ".\Main.cs") -replace "namespace MODID","namespace $MODID" | set-content ".\Main.cs"
+(get-content ".\Main.cs") -replace "MODID","$MODID" | set-content ".\Main.cs"
 
 $JSON = get-content .\Info.json | convertfrom-json
 
