@@ -67,8 +67,9 @@ Get-ChildItem .\backup | ForEach-Object {Rename-Item $_.fullname $($_.name + ".b
 rename-item ".\MODID.csproj" ".\$MODID.csproj"
 rename-item ".\MODID.sln" ".\$MODID.sln"
 
+$assemblyPath = (get-childitem -Path $path -Recurse -Filter "Assembly-Csharp.dll" | select -ExpandProperty fullname) -replace "\\Managed\\Assembly-Csharp.dll",""
 [xml]$projectManifest = get-content ".\$MODID.csproj"
-[string]$assemblyDir = "$gamePath\NuclearOption_Data\Managed"
+[string]$assemblyDir = $assemblyPath
 [string]$modDeployDir = "$gamePath\Mods\$MODID"
 
 $projectManifest.Project.PropertyGroup.AssemblyName = $MODID
