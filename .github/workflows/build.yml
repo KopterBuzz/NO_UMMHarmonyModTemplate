@@ -17,7 +17,11 @@ jobs:
       uses: microsoft/setup-msbuild@v2
     - name: Setup NuGet
       uses: nuget/setup-nuget@v2
+    - name : run setup script
+      shell: pwsh
+      run: |
+        .\setup.ps1 -GAME "Nuclear Option" -MODID "SampleMod" -DISPLAYNAME "Sample Mod For Nuclear Option"
     - name: Restore NuGet
-      run: nuget restore MODID.sln
+      run: nuget restore SampleMod.sln
     - name: Build
-      run: msbuild MODID.sln -t:rebuild -property:Configuration=Debug
+      run: msbuild SampleMod.sln -t:rebuild -property:Configuration=Debug
