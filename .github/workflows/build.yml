@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v2
+    - name: Restore NuGet
+      run: nuget restore MODID.sln
+    - name: Build
+      run: msbuild MODID.sln -t:rebuild -property:Configuration=Debug
