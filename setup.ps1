@@ -1,7 +1,6 @@
 param(
      [Parameter(Position=0,Mandatory)]
      [string]$GAME,
-
      [Parameter(Position=1,Mandatory)]
      [string]$MODID,
      [Parameter(Position=2,Mandatory=$false)]
@@ -55,6 +54,7 @@ function Get-AllGameInstallDirs {
 ###HELPER FUNCTIONS END###
 ##########################
 $gamePath = (Get-AllGameInstallDirs).InstallDir -match $GAME
+write-host GAME PATH IS $gamepath
 
 if (!$gamePath) {
     write-host $GAME NOT DETECTED IN ANY LOCAL STEAM LIBRARIES. Terminating Setup.
@@ -67,18 +67,19 @@ Get-ChildItem .\backup | ForEach-Object {Rename-Item $_.fullname $($_.name + ".b
 rename-item ".\MODID.csproj" ".\$MODID.csproj"
 rename-item ".\MODID.sln" ".\$MODID.sln"
 
-$assemblyPath = (get-childitem -Path $path -Recurse -Filter "Assembly-Csharp.dll" | select -ExpandProperty fullname) -replace "\\Managed\\Assembly-Csharp.dll",""
-[xml]$projectManifest = get-content ".\$MODID.csproj"
-[string]$assemblyDir = $assemblyPath
-[string]$modDeployDir = "$gamePath\Mods\$MODID"
+$assemblyPath = (get-childitem -Path $gamePath -Recurse -Filter "Assembly-Csharp.dll" | select -ExpandProperty fullname) -replace "\\Assembly-Csharp.dll",""
+write-host ASSEMBLY PATH IS $assemblyPath
 
-$projectManifest.Project.PropertyGroup.AssemblyName = $MODID
-$projectManifest.Project.PropertyGroup.ModDeployDir.'#text' = $modDeployDir
-$projectManifest.Project.PropertyGroup.AssemblyDir.'#text' = $assemblyDir
+$projectManifest = get-content ".\$MODID.csproj"
+$modDeployDir = "$gamePath\Mods\$MODID"
+write-host MOD DEPLOY DIR IS $modDeployDir
 
-$projectManifest.save("$MODID.csproj")
+$projectManifest = $projectManifest -replace "\<AssemblyName\>MODID\</AssemblyName\>","<AssemblyName>$MODID</AssemblyName>"
+$projectManifest = $projectManifest -replace "ASSEMBLYPATH",$assemblyPath
+$projectManifest = $projectManifest -replace "GAMEDIR\\Mods\\MODID", $modDeployDir
+$projectManifest = $projectManifest -replace "MODID",$MODID
 
-(get-content ".\$MODID.csproj") -replace "MODID","$MODID" | set-content ".\$MODID.csproj"
+$projectManifest | set-content ".\$MODID.csproj"
 
 (get-content ".\$MODID.sln") -replace "MODID","$MODID" | set-content ".\$MODID.sln"
 
