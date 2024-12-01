@@ -3,9 +3,9 @@ name: CI
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: []
   pull_request:
-    branches: [ "main" ]
+    branches: []
 jobs:
   build:
 
@@ -18,6 +18,6 @@ jobs:
     - name: Setup NuGet
       uses: nuget/setup-nuget@v2
     - name: Restore NuGet
-      run: nuget restore SampleMod.sln
+      run: nuget restore MODID.sln
     - name: Build
-      run: msbuild SampleMod.sln -t:rebuild -property:Configuration=Debug
+      run: msbuild MODID.sln -t:rebuild -property:Configuration=Debug
